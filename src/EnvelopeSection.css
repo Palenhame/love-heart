@@ -1,0 +1,384 @@
+.envelope-section {
+  position: relative;
+  isolation: isolate;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  min-height: 100svh;
+  padding: 100px 22px 80px;
+  overflow: hidden;
+  color: #d6a6b5;
+  background:
+    radial-gradient(ellipse at 50% 42%, rgba(36, 0, 12, 0.25), transparent 55%),
+    linear-gradient(180deg, #020002 0%, #060104 50%, #000 100%);
+}
+
+.letter-glow {
+  position: absolute;
+  z-index: -2;
+  top: 40%;
+  left: 50%;
+  width: min(800px, 120vw);
+  aspect-ratio: 1;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(83, 0, 25, 0.18), rgba(38, 0, 13, 0.08) 46%, transparent 70%);
+  filter: blur(35px);
+  pointer-events: none;
+}
+
+.letter-stars {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.letter-stars span {
+  position: absolute;
+  left: var(--x);
+  top: var(--y);
+  width: 2px;
+  height: 2px;
+  border-radius: 50%;
+  background: #641029;
+  box-shadow: 0 0 8px rgba(121, 10, 42, 0.3);
+  animation: letter-star-glow 4s ease-in-out infinite;
+  animation-delay: var(--delay);
+}
+
+@keyframes letter-star-glow {
+  0%, 100% { opacity: 0.15; transform: scale(0.8); }
+  50% { opacity: 0.7; transform: scale(1.5); }
+}
+
+.letter-content {
+  position: relative;
+  width: min(760px, 100%);
+  margin: 0 auto;
+}
+
+.letter-heading { text-align: center; }
+
+.letter-eyebrow {
+  display: inline-block;
+  margin-bottom: 23px;
+  color: #87304b;
+  font-size: 10px;
+  letter-spacing: 0.32em;
+}
+
+.letter-heading h2 {
+  margin: 0;
+  color: #d4a1b1;
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: clamp(38px, 6vw, 65px);
+  line-height: 1.03;
+  font-weight: 400;
+  letter-spacing: -0.02em;
+}
+
+.letter-heading > p {
+  margin: 22px 0 0;
+  color: #79515f;
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: clamp(17px, 2.2vw, 21px);
+  line-height: 1.6;
+}
+
+.envelope-scene {
+  position: relative;
+  width: min(600px, 100%);
+  height: 620px;
+  margin: 35px auto 0;
+  perspective: 1100px;
+}
+
+/* Декоративный лист внутри конверта — основное письмо открывается отдельным окном. */
+.letter-paper {
+  position: absolute;
+  left: 50%;
+  bottom: 50px;
+  width: calc(100% - 20px);
+  min-height: 330px;
+  transform: translate(-50%, 0);
+  z-index: 1;
+  border: 1px solid rgba(126, 47, 68, 0.48);
+  background: linear-gradient(145deg, rgba(24, 8, 14, 0.98), rgba(12, 3, 7, 0.99));
+  box-shadow: 0 15px 65px rgba(0, 0, 0, 0.5), inset 0 0 35px rgba(66, 6, 24, 0.09);
+  opacity: 0.88;
+  transition: transform 0.85s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.4s ease;
+  pointer-events: none;
+}
+
+.letter-paper-inner {
+  padding: 28px 25px;
+  text-align: center;
+}
+
+.letter-paper-symbol {
+  display: block;
+  margin-bottom: 9px;
+  color: #84213e;
+  font-size: 19px;
+  animation: paper-heart-glow 3s ease-in-out infinite;
+}
+
+@keyframes paper-heart-glow {
+  0%, 100% { text-shadow: 0 0 4px rgba(121, 9, 39, 0.12); }
+  50% { text-shadow: 0 0 13px rgba(148, 14, 48, 0.48); }
+}
+
+.letter-paper h3 {
+  margin: 0 0 14px;
+  color: #d3a0b0;
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 31px;
+  font-weight: 400;
+}
+
+.letter-teaser {
+  max-width: 360px;
+  margin: 0 auto;
+  color: #9c7180;
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 19px;
+  line-height: 1.5;
+}
+
+.envelope-scene.is-open .letter-paper {
+  transform: translate(-50%, -165px);
+  opacity: 1;
+}
+
+.envelope-button {
+  position: absolute;
+  left: 50%;
+  bottom: 38px;
+  width: 100%;
+  height: 320px;
+  transform: translateX(-50%);
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: pointer;
+  overflow: visible;
+  perspective: 1000px;
+  z-index: 3;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.envelope-button:focus-visible {
+  outline: 1px solid rgba(150, 36, 68, 0.9);
+  outline-offset: 8px;
+}
+
+.envelope-back {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(145deg, #3b091a 0%, #210510 55%, #160209 100%);
+  border: 1px solid rgba(123, 30, 57, 0.55);
+  box-shadow: 0 25px 65px rgba(0, 0, 0, 0.4), inset 0 0 35px rgba(87, 5, 29, 0.12);
+}
+
+.envelope-front {
+  position: absolute;
+  inset: 0;
+  z-index: 4;
+  background: linear-gradient(135deg, #400a1c, #280612 70%, #310713);
+  clip-path: polygon(0 0, 50% 56%, 100% 0, 100% 100%, 0 100%);
+  filter: drop-shadow(0 -1px 2px rgba(100, 10, 35, 0.2));
+}
+
+.envelope-flap {
+  position: absolute;
+  inset: 0;
+  z-index: 5;
+  background: linear-gradient(150deg, #68112b, #39091b 80%);
+  clip-path: polygon(0 0, 100% 0, 50% 59%);
+  transform-origin: top center;
+  transition: transform 0.85s cubic-bezier(0.22, 1, 0.36, 1), filter 0.7s ease;
+  backface-visibility: hidden;
+}
+
+.envelope-scene.is-open .envelope-flap {
+  transform: rotateX(180deg);
+  filter: brightness(0.65);
+  z-index: 1;
+}
+
+.envelope-seal {
+  position: absolute;
+  left: 50%;
+  top: 46%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 58px;
+  height: 58px;
+  transform: translate(-50%, -50%);
+  transform-origin: center;
+  border-radius: 50%;
+  background: radial-gradient(circle at 33% 28%, #a52b4e, #79142f 48%, #4b071c 100%);
+  border: 1px solid rgba(190, 74, 103, 0.4);
+  box-shadow: 0 3px 12px rgba(0, 0, 0, 0.45), inset 0 1px 3px rgba(255, 183, 202, 0.15);
+  color: #e2a6b8;
+  font-size: 25px;
+  z-index: 6;
+  transition: opacity 0.3s ease, transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.envelope-scene.is-open .envelope-seal {
+  opacity: 0;
+  transform: translate(-50%, -50%) scale(0.45) rotate(-20deg);
+  pointer-events: none;
+}
+
+@media (hover: hover) {
+  .envelope-scene:not(.is-open) .envelope-button:hover .envelope-seal {
+    transform: translate(-50%, -50%) scale(1.08);
+  }
+  .envelope-scene:not(.is-open) .envelope-button:hover .envelope-flap {
+    filter: brightness(1.12);
+  }
+}
+
+.envelope-hint {
+  margin: -5px 0 0;
+  text-align: center;
+  color: #673247;
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 16px;
+  font-style: italic;
+  letter-spacing: 0.02em;
+}
+
+/* Окно письма рендерится в document.body, поэтому не обрезается секциями страницы. */
+.letter-expanded-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 100000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: clamp(12px, 3vw, 32px);
+  overflow-y: auto;
+  background: rgba(0, 0, 0, 0.72);
+  -webkit-backdrop-filter: blur(14px) brightness(0.48);
+  backdrop-filter: blur(14px) brightness(0.48);
+  cursor: pointer;
+}
+
+.letter-expanded-paper {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: min(820px, 100%);
+  min-height: min(760px, 88svh);
+  max-height: 92svh;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding: clamp(34px, 6vw, 76px) clamp(24px, 8vw, 95px);
+  border: 1px solid rgba(154, 48, 80, 0.62);
+  background:
+    radial-gradient(ellipse at 50% 0%, rgba(91, 12, 37, 0.28), transparent 62%),
+    linear-gradient(145deg, #18070e 0%, #0c0308 80%);
+  box-shadow: 0 35px 120px rgba(0, 0, 0, 0.75), 0 0 65px rgba(94, 0, 27, 0.18);
+  cursor: default;
+}
+
+.letter-expanded-paper::before {
+  content: '';
+  position: absolute;
+  inset: 12px;
+  border: 1px solid rgba(126, 47, 68, 0.16);
+  pointer-events: none;
+}
+
+.expanded-letter-topline {
+  margin-bottom: clamp(18px, 3vh, 34px);
+  text-align: center;
+  color: #8e4059;
+  font-size: 10px;
+  letter-spacing: 0.32em;
+}
+
+.expanded-letter-heart {
+  display: block;
+  margin-bottom: 16px;
+  text-align: center;
+  color: #9d2148;
+  font-size: clamp(22px, 3vw, 30px);
+  text-shadow: 0 0 24px rgba(140, 9, 45, 0.35);
+}
+
+.letter-expanded-paper h3 {
+  margin: 0 0 clamp(26px, 5vh, 48px);
+  text-align: center;
+  color: #deb2c0;
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: clamp(36px, 5vw, 54px);
+  line-height: 1.05;
+  font-weight: 400;
+}
+
+.expanded-letter-body {
+  width: 100%;
+  max-width: 620px;
+  margin: 0 auto;
+  color: #c9a4b1;
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: clamp(20px, 2.25vw, 26px);
+  line-height: 1.72;
+  text-align: center;
+}
+
+.expanded-letter-body p { margin: 0 0 clamp(18px, 3vh, 30px); }
+
+.expanded-letter-signature {
+  margin: clamp(18px, 3vh, 32px) 0 0;
+  text-align: center;
+  color: #d29aac;
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: clamp(23px, 3vw, 30px);
+  font-style: italic;
+}
+
+.expanded-letter-signature span { color: #a1264e; }
+
+.letter-dismiss-hint {
+  display: block;
+  margin-top: clamp(28px, 5vh, 48px);
+  text-align: center;
+  color: #654052;
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 15px;
+  font-style: italic;
+}
+
+@media (max-width: 600px) {
+  .envelope-section { padding: 80px 18px 50px; }
+  .letter-desktop-break { display: none; }
+  .envelope-scene { width: min(100%, 460px); height: 500px; }
+  .envelope-button { height: 245px; }
+  .letter-paper { min-height: 285px; }
+  .envelope-seal { width: 48px; height: 48px; font-size: 21px; }
+  .letter-expanded-overlay { padding: 10px; }
+  .letter-expanded-paper {
+    width: 100%;
+    min-height: 0;
+    max-height: 94svh;
+    padding: 48px 24px 38px;
+  }
+  .letter-expanded-paper::before { inset: 7px; }
+  .expanded-letter-body { font-size: clamp(19px, 5vw, 23px); line-height: 1.62; }
+  .letter-dismiss-hint { font-size: 14px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .letter-stars span, .letter-paper-symbol { animation: none; }
+  .letter-paper, .envelope-flap, .envelope-seal { transition-duration: 0.2s; }
+}

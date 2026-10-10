@@ -1,0 +1,531 @@
+.final-scene {
+  position: relative;
+  isolation: isolate;
+  display: grid;
+  place-items: center;
+  width: 100%;
+  min-height: 100vh;
+  min-height: 100svh;
+  padding: clamp(72px, 10vh, 120px) 24px 90px;
+  overflow: hidden;
+  background: #000;
+  color: #d8a0b2;
+}
+
+.final-vignette {
+  position: absolute;
+  inset: 0;
+  z-index: -5;
+  background: radial-gradient(ellipse at 50% 46%, #090004 0%, #030002 45%, #000 79%);
+  pointer-events: none;
+  transition: background 3.2s ease;
+}
+
+.final-bloom {
+  position: absolute;
+  z-index: -4;
+  left: 50%;
+  top: 49%;
+  width: min(118vmin, 1250px);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(91, 0, 29, 0.02) 0%, rgba(56, 0, 19, 0.015) 36%, transparent 72%);
+  opacity: 0;
+  transform: translate(-50%, -50%) scale(0.48);
+  transition:
+    opacity 3.3s ease,
+    transform 5.2s cubic-bezier(0.16, 1, 0.3, 1),
+    background 3.3s ease;
+  pointer-events: none;
+}
+
+.final-light-column {
+  position: absolute;
+  z-index: -3;
+  top: -30%;
+  left: 50%;
+  width: min(40vw, 440px);
+  height: 150%;
+  transform: translateX(-50%);
+  background: linear-gradient(180deg, transparent, rgba(98, 0, 29, 0.025) 35%, rgba(126, 5, 40, 0.06) 53%, transparent 90%);
+  filter: blur(48px);
+  opacity: 0;
+  transition: opacity 3.5s ease;
+  pointer-events: none;
+}
+
+.final-phase-3 .final-vignette,
+.final-phase-4 .final-vignette {
+  background: radial-gradient(ellipse at 50% 47%, #100006 0%, #050002 43%, #000 82%);
+}
+
+.final-phase-3 .final-bloom,
+.final-phase-4 .final-bloom {
+  opacity: 1;
+  transform: translate(-50%, -50%) scale(1.08);
+  background: radial-gradient(circle, rgba(120, 0, 38, 0.23) 0%, rgba(78, 0, 26, 0.13) 31%, rgba(34, 0, 12, 0.045) 55%, transparent 72%);
+}
+
+.final-phase-3 .final-light-column,
+.final-phase-4 .final-light-column {
+  opacity: 1;
+}
+
+.final-content {
+  position: relative;
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: min(1100px, 100%);
+  text-align: center;
+}
+
+.final-eyebrow {
+  margin: 0 0 clamp(24px, 4.3vh, 42px);
+  color: #884056;
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.34em;
+  opacity: 0;
+  transform: translateY(12px);
+  transition: opacity 1.5s ease, transform 1.5s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.final-phase-2 .final-eyebrow,
+.final-phase-3 .final-eyebrow,
+.final-phase-4 .final-eyebrow {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* The heart is a fine, hand-drawn luminous contour — no solid fill. */
+.final-heart-stage {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: min(56vmin, 490px);
+  min-width: 235px;
+  aspect-ratio: 1;
+  opacity: 0;
+  transform: translateY(12px) scale(0.88);
+  transition:
+    opacity 1.5s ease,
+    transform 2.1s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.final-phase-2 .final-heart-stage,
+.final-phase-3 .final-heart-stage,
+.final-phase-4 .final-heart-stage {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+.final-heart-art {
+  position: relative;
+  z-index: 3;
+  display: block;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  filter: drop-shadow(0 0 12px rgba(99, 0, 31, 0.22));
+}
+
+.final-heart-art path {
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  vector-effect: non-scaling-stroke;
+}
+
+.final-heart-halo {
+  stroke: rgba(145, 7, 43, 0.2);
+  stroke-width: 18px;
+  filter: url(#final-heart-glow);
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  animation: final-heart-trace 3.35s cubic-bezier(0.4, 0, 0.2, 1) both paused;
+}
+
+.final-heart-line {
+  stroke: url(#final-heart-stroke);
+  stroke-width: 2.15px;
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  animation: final-heart-trace 3.35s cubic-bezier(0.4, 0, 0.2, 1) both paused;
+}
+
+.final-heart-core {
+  stroke: rgba(218, 82, 119, 0.58);
+  stroke-width: 0.6px;
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  animation: final-heart-trace 3.35s cubic-bezier(0.4, 0, 0.2, 1) both paused;
+}
+
+.final-phase-2 .final-heart-halo,
+.final-phase-2 .final-heart-line,
+.final-phase-2 .final-heart-core,
+.final-phase-3 .final-heart-halo,
+.final-phase-3 .final-heart-line,
+.final-phase-3 .final-heart-core,
+.final-phase-4 .final-heart-halo,
+.final-phase-4 .final-heart-line,
+.final-phase-4 .final-heart-core {
+  animation-play-state: running;
+}
+
+@keyframes final-heart-trace {
+  0% { stroke-dashoffset: 1; opacity: 0.15; }
+  12% { opacity: 0.82; }
+  100% { stroke-dashoffset: 0; opacity: 1; }
+}
+
+.final-heart-aura {
+  position: absolute;
+  z-index: 0;
+  inset: 9%;
+  border-radius: 50%;
+  background: radial-gradient(ellipse, rgba(120, 0, 37, 0.09), rgba(67, 0, 23, 0.04) 42%, transparent 72%);
+  filter: blur(20px);
+  opacity: 0;
+  transform: scale(0.7);
+  transition: opacity 2.8s ease, transform 3.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.final-phase-3 .final-heart-aura,
+.final-phase-4 .final-heart-aura {
+  opacity: 1;
+  transform: scale(1.42);
+}
+
+/* Fine heart-shaped echoes radiate outward only after the drawn heart is complete. */
+.final-heart-wave {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  z-index: 1;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.final-heart-wave path {
+  fill: none;
+  stroke: rgba(124, 7, 40, 0.42);
+  stroke-width: 1.05px;
+  stroke-linejoin: round;
+  vector-effect: non-scaling-stroke;
+}
+
+.final-phase-3 .final-heart-wave,
+.final-phase-4 .final-heart-wave {
+  animation: final-heart-echo 4.8s cubic-bezier(0.16, 0.6, 0.3, 1) infinite;
+}
+
+.final-phase-3 .final-heart-wave-1,
+.final-phase-4 .final-heart-wave-1 {
+  animation-delay: 1.6s;
+}
+
+.final-phase-3 .final-heart-wave-2,
+.final-phase-4 .final-heart-wave-2 {
+  animation-delay: 3.2s;
+}
+
+@keyframes final-heart-echo {
+  0% { transform: scale(0.96); opacity: 0; }
+  11% { opacity: 0.38; }
+  72% { opacity: 0.12; }
+  100% { transform: scale(1.76); opacity: 0; }
+}
+
+.final-heart-flare {
+  position: absolute;
+  z-index: 4;
+  left: 50%;
+  top: 46%;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  transform: translate(-50%, -50%) scale(0.1);
+  background: #df8da5;
+  box-shadow: 0 0 8px 3px rgba(151, 18, 56, 0.38), 0 0 28px 8px rgba(101, 0, 29, 0.12);
+  opacity: 0;
+  transition: opacity 1.2s ease, transform 2.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.final-phase-3 .final-heart-flare,
+.final-phase-4 .final-heart-flare {
+  opacity: 0.7;
+  transform: translate(-50%, -50%) scale(1);
+  animation: heart-flare-breath 2.8s ease-in-out infinite;
+}
+
+@keyframes heart-flare-breath {
+  0%, 100% { opacity: 0.35; box-shadow: 0 0 8px 3px rgba(151, 18, 56, 0.25), 0 0 28px 8px rgba(101, 0, 29, 0.1); }
+  50% { opacity: 0.8; box-shadow: 0 0 12px 5px rgba(180, 26, 67, 0.35), 0 0 48px 16px rgba(101, 0, 29, 0.22); }
+}
+
+/* The heartbeat is deliberately delayed until the outline has been drawn and held. */
+.final-phase-3 .final-heart-art,
+.final-phase-4 .final-heart-art {
+  animation: final-heartbeat 2.8s cubic-bezier(0.33, 1, 0.68, 1) infinite;
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
+@keyframes final-heartbeat {
+  0%, 100% { transform: scale(1); }
+  7% { transform: scale(1.026); }
+  14% { transform: scale(1); }
+  23% { transform: scale(1.043); }
+  37% { transform: scale(1); }
+}
+
+.final-copy {
+  width: min(1020px, 100%);
+  margin-top: clamp(12px, 2.2vh, 28px);
+  opacity: 0;
+  transform: translateY(28px);
+  filter: blur(12px);
+  pointer-events: none;
+  transition:
+    opacity 2.1s ease,
+    transform 2.1s cubic-bezier(0.16, 1, 0.3, 1),
+    filter 2.1s ease;
+}
+
+.final-phase-4 .final-copy {
+  opacity: 1;
+  transform: translateY(0);
+  filter: blur(0);
+  pointer-events: auto;
+}
+
+.final-copy h2 {
+  margin: 0;
+  color: #dfb0bf;
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: clamp(31px, 5.2vw, 64px);
+  font-weight: 400;
+  line-height: 1.1;
+  letter-spacing: -0.022em;
+  text-wrap: balance;
+  text-shadow: 0 0 38px rgba(130, 0, 39, 0.22);
+}
+
+.final-copy > p {
+  margin: 22px 0 0;
+  color: #925267;
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: clamp(19px, 2.3vw, 25px);
+  font-style: italic;
+  letter-spacing: 0.025em;
+}
+
+.final-replay {
+  display: inline-flex;
+  align-items: center;
+  gap: 11px;
+  margin-top: 34px;
+  padding: 13px 25px;
+  border: 1px solid rgba(145, 35, 69, 0.55);
+  border-radius: 999px;
+  background: rgba(20, 1, 8, 0.6);
+  color: #d5a0b2;
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 18px;
+  letter-spacing: 0.025em;
+  cursor: pointer;
+  transition: background 0.35s ease, border-color 0.35s ease, color 0.35s ease, transform 0.35s ease, box-shadow 0.35s ease;
+}
+
+.final-replay span {
+  color: #a3264c;
+  font-size: 14px;
+}
+
+.final-replay:hover {
+  transform: translateY(-3px);
+  border-color: rgba(183, 59, 91, 0.85);
+  background: rgba(61, 3, 22, 0.72);
+  color: #ffe1e9;
+  box-shadow: 0 0 28px rgba(105, 0, 32, 0.16);
+}
+
+/* A dense storm of rose petals crosses the screen, then the entire layer dissolves. */
+.final-petals,
+.final-wind {
+  position: absolute;
+  inset: -2%;
+  overflow: hidden;
+  pointer-events: none;
+  transition: opacity 2.4s ease, visibility 0s linear 2.4s;
+}
+
+.final-petals {
+  z-index: 2;
+  opacity: 0.96;
+}
+
+.final-wind {
+  z-index: 1;
+  opacity: 0.72;
+  transition: opacity 2.2s ease, visibility 0s linear 2.2s;
+}
+
+.final-petal {
+  position: absolute;
+  top: var(--petal-top);
+  left: calc(100% + 45px);
+  width: var(--petal-size);
+  height: calc(var(--petal-size) * 1.62);
+  border-radius: 86% 0 86% 0;
+  background: linear-gradient(145deg, rgba(169, 37, 77, 0.93), rgba(101, 8, 36, 0.88) 48%, rgba(42, 2, 15, 0.92));
+  box-shadow: 0 0 8px rgba(122, 7, 39, 0.18);
+  opacity: 0;
+  animation: final-petal-flight var(--petal-duration) linear var(--petal-delay) infinite;
+  will-change: transform, opacity;
+}
+
+@keyframes final-petal-flight {
+  0% {
+    transform: translate3d(0, 0, 0) rotate(var(--petal-rotation)) scale(0.72);
+    opacity: 0;
+  }
+  8% { opacity: var(--petal-opacity); }
+  27% {
+    transform: translate3d(calc(-27vw), calc(var(--petal-sway) - 20px), 0) rotate(calc(var(--petal-rotation) + 115deg)) scale(1);
+  }
+  53% {
+    transform: translate3d(calc(-56vw), calc(var(--petal-drift) + 22px), 0) rotate(calc(var(--petal-rotation) + 275deg)) scale(0.92);
+  }
+  87% { opacity: calc(var(--petal-opacity) * 0.86); }
+  100% {
+    transform: translate3d(calc(-115vw), calc(var(--petal-drift) - 38px), 0) rotate(calc(var(--petal-rotation) + 520deg)) scale(0.76);
+    opacity: 0;
+  }
+}
+
+.final-wind-streak {
+  position: absolute;
+  top: var(--wind-top);
+  left: 110%;
+  width: var(--wind-width);
+  height: 1px;
+  border-radius: 50%;
+  background: linear-gradient(90deg, transparent, rgba(137, 48, 77, 0.14), rgba(194, 89, 120, 0.36), rgba(112, 24, 54, 0.14), transparent);
+  filter: blur(1px);
+  animation: final-wind-sweep var(--wind-duration) linear var(--wind-delay) infinite;
+}
+
+@keyframes final-wind-sweep {
+  0% { transform: translate3d(0, 0, 0) rotate(-8deg); opacity: 0; }
+  13% { opacity: 0.65; }
+  80% { opacity: 0.28; }
+  100% { transform: translate3d(calc(-125vw), var(--wind-drift), 0) rotate(-8deg); opacity: 0; }
+}
+
+.final-phase-1 .final-petals,
+.final-phase-1 .final-wind,
+.final-phase-2 .final-petals,
+.final-phase-2 .final-wind,
+.final-phase-3 .final-petals,
+.final-phase-3 .final-wind,
+.final-phase-4 .final-petals,
+.final-phase-4 .final-wind {
+  opacity: 0;
+  visibility: hidden;
+}
+
+.final-dust {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 2.8s ease;
+}
+
+.final-phase-2 .final-dust,
+.final-phase-3 .final-dust,
+.final-phase-4 .final-dust {
+  opacity: 0.72;
+}
+
+.final-dust-speck {
+  position: absolute;
+  left: var(--dust-x);
+  top: var(--dust-y);
+  width: var(--dust-size);
+  height: var(--dust-size);
+  border-radius: 50%;
+  background: rgba(154, 38, 72, 0.7);
+  box-shadow: 0 0 9px rgba(132, 11, 44, 0.3);
+  animation: final-dust-drift var(--dust-duration) ease-in-out var(--dust-delay) infinite alternate;
+}
+
+@keyframes final-dust-drift {
+  from { transform: translate3d(-5px, 8px, 0) scale(0.6); opacity: 0.12; }
+  to { transform: translate3d(8px, -11px, 0) scale(1.15); opacity: 0.78; }
+}
+
+.final-bottom-note {
+  position: absolute;
+  left: 50%;
+  bottom: 27px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  transform: translateX(-50%);
+  opacity: 0;
+  transition: opacity 1.5s ease;
+}
+
+.final-phase-4 .final-bottom-note { opacity: 0.46; }
+
+.final-bottom-note > span:not(.final-bottom-heart) {
+  width: 34px;
+  height: 1px;
+  background: rgba(112, 22, 49, 0.65);
+}
+
+.final-bottom-heart {
+  color: #8e2042;
+  font-size: 10px;
+}
+
+@media (max-width: 600px) {
+  .final-scene { padding: 75px 18px 82px; }
+  .final-eyebrow { margin-bottom: 18px; font-size: 9px; }
+  .final-heart-stage { width: min(76vw, 390px); min-width: 220px; }
+  .final-desktop-break { display: none; }
+  .final-copy { margin-top: 8px; }
+  .final-copy h2 { font-size: clamp(31px, 8vw, 44px); line-height: 1.14; }
+  .final-copy > p { margin-top: 16px; }
+  .final-replay { margin-top: 27px; }
+  .final-petal { box-shadow: 0 0 5px rgba(122, 7, 39, 0.14); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .final-phase-3 .final-heart-art,
+  .final-phase-4 .final-heart-art,
+  .final-heart-flare,
+  .final-dust-speck,
+  .final-petal,
+  .final-wind-streak,
+  .final-phase-3 .final-heart-wave,
+  .final-phase-4 .final-heart-wave {
+    animation-duration: 20s;
+  }
+  .final-bloom,
+  .final-petals,
+  .final-wind,
+  .final-heart-stage,
+  .final-copy {
+    transition-duration: 0.4s;
+  }
+}
